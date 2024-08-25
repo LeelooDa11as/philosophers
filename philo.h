@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:14:22 by kate              #+#    #+#             */
-/*   Updated: 2024/08/24 21:03:46 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/25 21:24:01 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ typedef struct s_table
 	int				time_to_sleep;
 	int				n_time_to_eat;
 	pthread_mutex_t	print_mutex;
+	pthread_mutex_t	start_life;
 	int				start_time;
 
 }				t_table;
+
+//				PHILO LIFE
+void	*philo_life(void *p);
 
 //				PHILO_UTILS
 int		check_args(int ac, char *args[]);
