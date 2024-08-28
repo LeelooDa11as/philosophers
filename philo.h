@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:14:22 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 15:02:00 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/28 18:55:19 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,9 @@ int 	get_time_ms(void);
 int		get_game_time_ms(t_table *table);
 void	philo_status(t_philo *philo, char *msg);
 int		ft_sleep(int ms);
+
+//				PHILO_UTILS2
+int		ft_free_philos(t_table *table);
+void    ft_free(t_table *table);
 
 #endif

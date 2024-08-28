@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_start.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:02:40 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 15:05:06 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/28 19:04:36 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,11 @@ void	init_philos(t_philo *philos, t_table *table)
 		philos[i].last_meal = 0;
 		philos[i].times_to_eat = table->n_time_to_eat;
 		philos[i].table = table;
-		philos[i].left_fork = &table->forks[i]; 
+		philos[i].left_fork = &table->forks[i];
 		if (i == 0)
 			philos[i].right_fork = &table->forks[n - 1];
-		else 
+		else
 			philos[i].right_fork = &table->forks[i - 1];
-		//philos[i].right_fork = &table->forks[(i - 1) % n];
 		pthread_create(&philos[i].thread, NULL, &philo_life, (void *)&philos[i]);
 	}
 }
@@ -81,10 +80,7 @@ int	init_table(t_table *table, int ac, char *av[])
 	table->finish_game = 0;
 	table->forks = malloc(sizeof(pthread_mutex_t) * table->philo_num);
 	if (!table->forks)
-	{
-		//lliberar el table->philo;
-		return (-1);
-	}
+		return (ft_free_philos(table));
 	mutex_init(table);
 	pthread_mutex_lock(&table->start_life);
 	init_philos(table->philos, table);
@@ -106,15 +102,15 @@ int main(int ac, char *av[])
 		printf("The arguments introduced are not correct, try again\n");
 		return (1);
 	}
-	init_table(&table, ac, av);
-
+	if (init_table(&table, ac, av) == -1)
+		return (1);
 	while (n < table.philo_num)
 	{
 		pthread_join(table.philos[n].thread, NULL);
 		n++;
 	}
 	pthread_join(table.game_master_thread, NULL);
+	ft_free(&table);
 	mutex_destroy(&table);
-	//free_cosas
 	return (0);
 }
