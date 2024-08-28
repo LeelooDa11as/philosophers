@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:02:40 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 19:04:36 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/28 20:45:22 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	mutex_init(t_table *table)
 	pthread_mutex_init(&table->print_mutex, NULL);
 	pthread_mutex_init(&table->start_life, NULL);
 	pthread_mutex_init(&table->mutex_philo_ate, NULL);
+	pthread_mutex_init(&table->mutex_finish, NULL);
 	while (i < table->philo_num)
 	{
 		pthread_mutex_init(&table->forks[i], NULL);
@@ -62,6 +63,7 @@ void	mutex_destroy(t_table *table)
 	pthread_mutex_destroy(&table->print_mutex);
 	pthread_mutex_destroy(&table->start_life);
 	pthread_mutex_destroy(&table->mutex_philo_ate);
+	pthread_mutex_destroy(&table->mutex_finish);
 }
 
 int	init_table(t_table *table, int ac, char *av[])

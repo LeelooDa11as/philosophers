@@ -6,7 +6,7 @@
 #    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 17:36:56 by kkoval            #+#    #+#              #
-#    Updated: 2024/08/28 18:10:34 by kkoval           ###   ########.fr        #
+#    Updated: 2024/08/28 20:56:07 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = philo_start.c philo_life.c philo_utils.c philo_utils2.c
 OBJS = ${SRCS:.c=.o}
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror #-fsanitize=thread -g
 
 all:        ${NAME}
 

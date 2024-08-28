@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 17:37:07 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/28 20:48:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	philo_status(t_philo *philo, char *msg)
 	
 	pthread_mutex_lock(&(philo->table->print_mutex));
 	time = get_time_ms() - philo->table->start_time;
+	pthread_mutex_lock(&(philo->table->mutex_finish));
 	if (philo->table->finish_game == 0)
 		printf("%d %d %s\n", time, philo->id, msg);
+	pthread_mutex_unlock(&(philo->table->mutex_finish));
 	pthread_mutex_unlock(&(philo->table->print_mutex));
 
 }

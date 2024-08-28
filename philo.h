@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:14:22 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 18:55:19 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/28 20:38:31 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_table
 	int				finish_game;
 	int				start_time;
 	pthread_mutex_t	mutex_philo_ate;
+	pthread_mutex_t	mutex_finish;
 	pthread_t		game_master_thread;
 	int				n_philos_ate;
 
