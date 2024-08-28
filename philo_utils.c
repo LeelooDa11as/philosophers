@@ -6,7 +6,7 @@
 /*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/08/24 21:03:32 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/28 14:15:58 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,24 @@ void	philo_status(t_philo *philo, char *msg)
 	
 	pthread_mutex_lock(&(philo->table->print_mutex));
 	time = get_time_ms() - philo->table->start_time;
-	printf("%d %d %s\n", time, philo->id, msg);
+	if (philo->table->finish_game == 0)
+		printf("%d %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&(philo->table->print_mutex));
 
 }
 
 // it returns current time in miliseconds
-int	get_time_ms(void)
+int get_time_ms(void)
 {
 	struct timeval	time;
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+int	get_game_time_ms(t_table *table)
+{
+	return (get_time_ms() - table->start_time);
 }
 
 int	is_numeric(char *str)
