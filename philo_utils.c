@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/08/28 20:48:32 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/29 02:12:43 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,22 @@ int	check_args(int ac, char *args[])
 		x++;
 	}
 	return (1);
+}
+
+int 	get_finish_mutex(t_table *table)
+{		
+	int finish;
+
+	pthread_mutex_lock(&table->mutex_finish);
+	finish = table->finish_game;
+	pthread_mutex_unlock(&table->mutex_finish);
+	return (finish);
+}
+
+void 	set_finish_mutex(t_table *table, int i)
+{		
+
+	pthread_mutex_lock(&table->mutex_finish);
+	table->finish_game = i;
+	pthread_mutex_unlock(&table->mutex_finish);
 }
