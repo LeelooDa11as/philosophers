@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/08/29 02:12:43 by kate             ###   ########.fr       */
+/*   Updated: 2024/08/29 19:23:20 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_sleep(int ms)
 
 	time = get_time_ms();
 	while (get_time_ms() - time < ms)
-		usleep(200);
+		usleep(500);
 	return (0);
 }
 

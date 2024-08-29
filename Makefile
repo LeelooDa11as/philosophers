@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kate <kate@student.42.fr>                  +#+  +:+       +#+         #
+#    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 17:36:56 by kkoval            #+#    #+#              #
-#    Updated: 2024/08/29 02:12:46 by kate             ###   ########.fr        #
+#    Updated: 2024/08/29 18:56:08 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ SRCS = philo_start.c philo_life.c philo_utils.c philo_utils2.c
 OBJS = ${SRCS:.c=.o}
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -fsanitize=thread -g
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
 
 all:        ${NAME}
 
