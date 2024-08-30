@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:43:02 by kate              #+#    #+#             */
-/*   Updated: 2024/08/30 17:01:35 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/30 17:40:32 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ void	*game_master(void *t)
 	i = 0;
 	finish = get_finish_mutex(table);
 	while (finish == 0)
-	{
-		usleep(200);
+	{	
+		i = 0;
 		philo = table->philos[i];
 		
 		if (get_game_time_ms(philo.table) - philo.last_meal > table->time_to_die)
@@ -67,7 +67,7 @@ void	*game_master(void *t)
 			set_finish_mutex(table, 1);
 		}
 		if (++i == table->philo_num)
-			i = 0;
+		
 		pthread_mutex_lock(&table->mutex_philo_ate);
 		if (table->n_philos_ate == table->philo_num)
 			set_finish_mutex(table, 1);
