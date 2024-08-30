@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:43:02 by kate              #+#    #+#             */
-/*   Updated: 2024/08/29 20:32:47 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/08/30 17:01:35 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 void		philo_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left_fork);
+	pthread_mutex_t	*first_fork;
+	pthread_mutex_t	*second_fork;
+
+	first_fork = philo->left_fork;
+	second_fork = philo->right_fork;
+	if (philo->id == philo->table->philo_num)
+	{
+		first_fork = philo->right_fork;
+		second_fork = philo->left_fork;
+	}
+
+	pthread_mutex_lock(first_fork);
 	philo_status(philo, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
+	pthread_mutex_lock(second_fork);
 	philo_status(philo, "has taken a fork");
 	pthread_mutex_lock(&philo->table->mutex_philo_ate);
 	philo->last_meal = get_game_time_ms(philo->table);
 	pthread_mutex_unlock(&philo->table->mutex_philo_ate);
 	philo_status(philo, "is eating");
 	ft_sleep(philo->table->time_to_eat);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	pthread_mutex_unlock(second_fork);
+	pthread_mutex_unlock(first_fork);
 	pthread_mutex_lock(&philo->table->mutex_philo_ate);
 	philo->times_to_eat--;
 	if (philo->times_to_eat == 0)
@@ -35,7 +46,7 @@ void		philo_eat(t_philo *philo)
 	philo_status(philo, "is thinking");
 }
 
-/*void	*game_master(void *t)
+void	*game_master(void *t)
 {
 	t_table	*table;
 	t_philo	philo;
@@ -47,7 +58,9 @@ void		philo_eat(t_philo *philo)
 	finish = get_finish_mutex(table);
 	while (finish == 0)
 	{
+		usleep(200);
 		philo = table->philos[i];
+		
 		if (get_game_time_ms(philo.table) - philo.last_meal > table->time_to_die)
 		{	
 			philo_status(&philo, " died");
@@ -63,9 +76,7 @@ void		philo_eat(t_philo *philo)
 		finish = get_finish_mutex(table);
 	}
 	return ((void *)0);
-}*/
-
-
+}
 
 void	*philo_life(void *p)
 {
