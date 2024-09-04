@@ -6,17 +6,17 @@
 #    By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/08/28 17:36:56 by kkoval            #+#    #+#              #
-#    Updated: 2024/08/29 18:56:08 by kkoval           ###   ########.fr        #
+#    Updated: 2024/09/04 19:33:53 by kkoval           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = philo
 HEADER = philo.h
-SRCS = philo_start.c philo_life.c philo_utils.c philo_utils2.c
+SRCS = philo_start.c philo_life.c philo_utils.c philo_free.c
 OBJS = ${SRCS:.c=.o}
 CC = cc
 RM = rm -f
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 all:        ${NAME}
 

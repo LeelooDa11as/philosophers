@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:14:22 by kate              #+#    #+#             */
-/*   Updated: 2024/08/29 19:26:28 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/09/04 18:50:02 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,11 @@ int		ft_sleep(int ms);
 int 	get_finish_mutex(t_table *table);
 void 	set_finish_mutex(t_table *table, int i);
 
-
 //				PHILO_UTILS2
+
+
+
+//				PHILO_FREE
 int		ft_free_philos(t_table *table);
 void    ft_free(t_table *table);
 

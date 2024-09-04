@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:43:02 by kate              #+#    #+#             */
-/*   Updated: 2024/08/30 18:12:56 by kate             ###   ########.fr       */
+/*   Updated: 2024/09/04 20:04:08 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,17 @@ void	*game_master(void *t)
 		last_meal = table->philos[i].last_meal;
 		if (get_game_time_ms(table) - last_meal > table->time_to_die)
 		{	
-			philo_status(&table->philos[i], " died");
+			philo_status(&table->philos[i], "died");
 			set_finish_mutex(table, 1);
 		}
 		if (++i == table->philo_num)
 			i = 0;
 		if (table->n_philos_ate == table->philo_num)
+		{
 			set_finish_mutex(table, 1);
+			pthread_mutex_unlock(&table->mutex_philo_ate);
+			break ;
+		}
 		pthread_mutex_unlock(&table->mutex_philo_ate);
 		ft_sleep(1);
 		finish = get_finish_mutex(table);
@@ -101,6 +105,10 @@ void	*philo_life(void *p)
 			ft_sleep(philo->table->time_to_die + 10);
 		}
 		finish = get_finish_mutex(philo->table);
+		pthread_mutex_lock(&philo->table->mutex_philo_ate);
+		if (philo->times_to_eat <= 0)
+			finish = 1;
+		pthread_mutex_unlock(&philo->table->mutex_philo_ate);
 	}
 	return ((void *)0);
 }

@@ -6,7 +6,7 @@
 /*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/08/29 19:23:20 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/09/04 20:17:46 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_sleep(int ms)
 
 	time = get_time_ms();
 	while (get_time_ms() - time < ms)
-		usleep(500);
+		usleep(300);
 	return (0);
 }
 
@@ -67,8 +67,8 @@ int	is_numeric(char *str)
 
 int	ft_atoi(const char *str)
 {
-	int	res;
-	int	sig;
+	long	res;
+	int		sig;
 
 	res = 0;
 	sig = 1;
@@ -80,6 +80,8 @@ int	ft_atoi(const char *str)
 	{
 		res = res * 10 + *str - '0';
 		str++;
+		if (res > __INT_MAX__)
+			return (0);
 	}
 	return (res * sig);
 }
