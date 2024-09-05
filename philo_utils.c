@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/09/04 20:17:46 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:25:01 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int		ft_sleep(int ms)
 void	philo_status(t_philo *philo, char *msg)
 {
 	int		time;
+	int finish;
 	
 	pthread_mutex_lock(&(philo->table->print_mutex));
 	time = get_time_ms() - philo->table->start_time;
-	pthread_mutex_lock(&(philo->table->mutex_finish));
-	if (philo->table->finish_game == 0)
+	finish = get_finish_mutex(philo->table);
+	if (finish == 0)
 		printf("%d %d %s\n", time, philo->id, msg);
-	pthread_mutex_unlock(&(philo->table->mutex_finish));
 	pthread_mutex_unlock(&(philo->table->print_mutex));
 
 }

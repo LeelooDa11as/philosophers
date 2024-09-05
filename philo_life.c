@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
+/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:43:02 by kate              #+#    #+#             */
-/*   Updated: 2024/09/04 20:04:08 by kkoval           ###   ########.fr       */
+/*   Updated: 2024/09/05 00:25:03 by kate             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	*philo_life(void *p)
 		}
 		finish = get_finish_mutex(philo->table);
 		pthread_mutex_lock(&philo->table->mutex_philo_ate);
-		if (philo->times_to_eat <= 0)
-			finish = 1;
+		if (philo->times_to_eat == 0)
+			set_finish_mutex(philo->table, 1);
 		pthread_mutex_unlock(&philo->table->mutex_philo_ate);
 	}
 	return ((void *)0);
