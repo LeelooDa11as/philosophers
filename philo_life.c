@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   philo_life.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 20:43:02 by kate              #+#    #+#             */
-/*   Updated: 2024/09/05 00:25:03 by kate             ###   ########.fr       */
+/*   Updated: 2024/09/05 16:36:16 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void		philo_eat(t_philo *philo)
+void	philo_eat(t_philo *philo)
 {
-	pthread_mutex_t *first_fork;
-	pthread_mutex_t *second_fork;
+	pthread_mutex_t	*first_fork;
+	pthread_mutex_t	*second_fork;
 
 	first_fork = philo->left_fork;
 	second_fork = philo->right_fork;
@@ -24,7 +24,6 @@ void		philo_eat(t_philo *philo)
 		first_fork = philo->right_fork;
 		second_fork = philo->left_fork;
 	}
-
 	pthread_mutex_lock(first_fork);
 	philo_status(philo, "has taken a fork");
 	pthread_mutex_lock(second_fork);
@@ -50,10 +49,10 @@ void	*game_master(void *t)
 {
 	t_table	*table;
 	int		i;
-	int 	finish;
-	int 	last_meal;
+	int		finish;
+	int		last_meal;
 
-	table = (t_table*) t;
+	table = (t_table *) t;
 	i = 0;
 	finish = get_finish_mutex(table);
 	while (finish == 0)
@@ -61,7 +60,7 @@ void	*game_master(void *t)
 		pthread_mutex_lock(&table->mutex_philo_ate);
 		last_meal = table->philos[i].last_meal;
 		if (get_game_time_ms(table) - last_meal > table->time_to_die)
-		{	
+		{
 			philo_status(&table->philos[i], "died");
 			set_finish_mutex(table, 1);
 		}
@@ -80,17 +79,15 @@ void	*game_master(void *t)
 	return ((void *)0);
 }
 
-
-
 void	*philo_life(void *p)
 {
 	t_philo	*philo;
-	int 	finish;
-	
+	int		finish;
+
 	philo = (t_philo *) p;
 	pthread_mutex_lock(&philo->table->start_life);
 	pthread_mutex_unlock(&philo->table->start_life);
-	if (philo->id%2 == 1)
+	if (philo->id % 2 == 1)
 		ft_sleep(1);
 	finish = get_finish_mutex(philo->table);
 	while (finish == 0)

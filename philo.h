@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 17:14:22 by kate              #+#    #+#             */
-/*   Updated: 2024/09/05 00:25:05 by kate             ###   ########.fr       */
+/*   Updated: 2024/09/05 16:30:58 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-#include <unistd.h>
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
+# include <unistd.h>
+# include <pthread.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
 
-typedef struct s_table t_table;
-typedef struct	s_philo
+typedef struct s_table	t_table;
+typedef struct s_philo
 {
 	int				id;
 	pthread_mutex_t	*left_fork;
@@ -58,19 +58,24 @@ void	*philo_life(void *p);
 //				PHILO_UTILS
 int		check_args(int ac, char *args[]);
 int		ft_atoi(const char *str);
-int 	get_time_ms(void);
+int		get_time_ms(void);
 int		get_game_time_ms(t_table *table);
 void	philo_status(t_philo *philo, char *msg);
 int		ft_sleep(int ms);
-int 	get_finish_mutex(t_table *table);
-void 	set_finish_mutex(t_table *table, int i);
+int		get_finish_mutex(t_table *table);
+void	set_finish_mutex(t_table *table, int i);
 
 //				PHILO_UTILS2
-
-
+void	assign_table(t_table *table, int ac, char *av[]);
+int		failed_create(t_table *table, t_philo *philos, int i);
 
 //				PHILO_FREE
 int		ft_free_philos(t_table *table);
-void    ft_free(t_table *table);
+void	ft_free(t_table *table);
+
+//				PHILO_ARG_CHECK
+int		is_numeric(char *str);
+int		ft_atoi(const char *str);
+int		check_args(int ac, char *args[]);
 
 #endif

@@ -3,41 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   philo_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kate <kate@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: kkoval <kkoval@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/24 16:15:38 by kate              #+#    #+#             */
-/*   Updated: 2024/09/05 00:25:01 by kate             ###   ########.fr       */
+/*   Updated: 2024/09/05 16:26:11 by kkoval           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		ft_sleep(int ms)
+int	ft_sleep(int ms)
 {
 	int	time;
 
 	time = get_time_ms();
 	while (get_time_ms() - time < ms)
-		usleep(300);
+		usleep(200);
 	return (0);
 }
 
 void	philo_status(t_philo *philo, char *msg)
 {
-	int		time;
-	int finish;
-	
+	int	time;
+	int	finish;
+
 	pthread_mutex_lock(&(philo->table->print_mutex));
 	time = get_time_ms() - philo->table->start_time;
 	finish = get_finish_mutex(philo->table);
 	if (finish == 0)
 		printf("%d %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(&(philo->table->print_mutex));
-
 }
 
 // it returns current time in miliseconds
-int get_time_ms(void)
+int	get_time_ms(void)
 {
 	struct timeval	time;
 
@@ -48,74 +47,4 @@ int get_time_ms(void)
 int	get_game_time_ms(t_table *table)
 {
 	return (get_time_ms() - table->start_time);
-}
-
-int	is_numeric(char *str)
-{
-	if (!str || *str == '\0')
-		return (0);
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str)
-	{
-		if (*str < '0' || *str > '9')
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-int	ft_atoi(const char *str)
-{
-	long	res;
-	int		sig;
-
-	res = 0;
-	sig = 1;
-	if (*str == '-')
-		sig = -1;
-	if (*str == '-' || *str == '+')
-		str++;
-	while (*str >= '0' && *str <= '9')
-	{
-		res = res * 10 + *str - '0';
-		str++;
-		if (res > __INT_MAX__)
-			return (0);
-	}
-	return (res * sig);
-}
-
-int	check_args(int ac, char *args[])
-{
-	int	x;
-
-	x = 1;
-	while (x < ac)
-	{
-		if (is_numeric(args[x]) == 0)
-			return (-1);
-		if (ft_atoi(args[x]) <= 0)
-			return (-1);
-		x++;
-	}
-	return (1);
-}
-
-int 	get_finish_mutex(t_table *table)
-{		
-	int finish;
-
-	pthread_mutex_lock(&table->mutex_finish);
-	finish = table->finish_game;
-	pthread_mutex_unlock(&table->mutex_finish);
-	return (finish);
-}
-
-void 	set_finish_mutex(t_table *table, int i)
-{		
-
-	pthread_mutex_lock(&table->mutex_finish);
-	table->finish_game = i;
-	pthread_mutex_unlock(&table->mutex_finish);
 }
